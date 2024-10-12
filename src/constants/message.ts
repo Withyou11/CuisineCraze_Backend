@@ -16,5 +16,11 @@ export const USER_MESSAGE = {
   NAME_LENGTH: 'Name length must be from 1 to 100 characters',
   USER_NOT_FOUND: 'Email or password is not correct',
   LOGIN_SUCCESSFUL: 'Login success',
-  REGISTER_SUCCESSFUL: 'Register success'
+  REGISTER_SUCCESSFUL: 'Register success',
+  EMPTY_ACCESS_TOKEN: 'Access token is required',
+  REFRESH_TOKEN_IS_REQUIRED: 'Refresh token is required',
+  REFRESH_TOKEN_IS_INVALID: 'Refresh token is invalid',
+  USED_REFRESH_TOKEN_OR_NOT_EXIST: 'Used refresh token or not exist',
+  LOGOUT_SUCCESS: 'Logout success',
+  ACCESS_TOKEN_IS_INVALID: 'Access token is invalid'
 }
