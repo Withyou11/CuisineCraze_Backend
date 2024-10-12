@@ -10,7 +10,7 @@ usersRouter.use((req, res, next) => {
   next()
 })
 
-usersRouter.post('/login', loginValidator, loginController)
+usersRouter.post('/login', loginValidator, wrapRequestHandler(loginController))
 
 /**
  * Description. Register a user

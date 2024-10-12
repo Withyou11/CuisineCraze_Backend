@@ -13,5 +13,8 @@ export const USER_MESSAGE = {
   CONFIRM_PASSWORD_MATCHED: 'Confirm Password does not matched',
   NAME_IS_REQUIRED: 'Name is required',
   NAME_MUST_BE_STRING: 'Name must be a string',
-  NAME_LENGTH: 'Name length must be from 1 to 100 characters'
+  NAME_LENGTH: 'Name length must be from 1 to 100 characters',
+  USER_NOT_FOUND: 'Email or password is not correct',
+  LOGIN_SUCCESSFUL: 'Login success',
+  REGISTER_SUCCESSFUL: 'Register success'
 }
