@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { checkSchema } from 'express-validator'
+import { USER_MESSAGE } from '~/constants/message.js'
 import { ErrorWithStatus } from '~/models/Errors.js'
 import usersService from '~/services/users.services.js'
 import { validate } from '~/utils/validation.js'
@@ -19,38 +20,52 @@ export const loginValidator = (req: Request, res: Response, next: NextFunction):
 export const registerValidator = validate(
   checkSchema({
     name: {
-      notEmpty: true,
-      isString: true,
+      notEmpty: {
+        errorMessage: USER_MESSAGE.EMAIL_IS_REQUIRED
+      },
+      isString: {
+        errorMessage: USER_MESSAGE.NAME_MUST_BE_STRING
+      },
       isLength: {
         options: {
           min: 1,
           max: 100
-        }
+        },
+        errorMessage: USER_MESSAGE.NAME_LENGTH
       },
       trim: true
     },
     email: {
-      notEmpty: true,
-      isEmail: true,
+      notEmpty: {
+        errorMessage: USER_MESSAGE.EMAIL_IS_REQUIRED
+      },
+      isEmail: {
+        errorMessage: USER_MESSAGE.EMAIL_IS_INVALID
+      },
       trim: true,
       custom: {
         options: async (value) => {
           const isExistEmail = await usersService.checkEmailExist(value)
           if (isExistEmail) {
-            throw new Error('Email already exists')
+            throw new Error(USER_MESSAGE.EMAIL_ALREADY_EXIST)
           }
           return true
         }
       }
     },
     password: {
-      notEmpty: true,
-      isString: true,
+      notEmpty: {
+        errorMessage: USER_MESSAGE.PASSWORD_IS_REQUIRED
+      },
+      isString: {
+        errorMessage: USER_MESSAGE.PASSWORD_MUST_BE_STRING
+      },
       isLength: {
         options: {
           min: 6,
           max: 50
-        }
+        },
+        errorMessage: USER_MESSAGE.PASSWORD_LENGTH
       },
       isStrongPassword: {
         options: {
@@ -60,16 +75,20 @@ export const registerValidator = validate(
           minSymbols: 1,
           minNumbers: 1
         },
-        errorMessage: 'Password is too weak!'
+        errorMessage: USER_MESSAGE.PASSWORD_STRONG
       }
     },
     confirm_password: {
-      notEmpty: true,
-      isString: true,
+      notEmpty: {
+        errorMessage: USER_MESSAGE.CONFIRM_PASSWORD_REQUIRED
+      },
+      isString: {
+        errorMessage: USER_MESSAGE.CONFIRM_PASSWORD_MUST_BE_STRING
+      },
       custom: {
         options: (value, { req }) => {
           if (value !== req.body.password) {
-            throw new Error('Password confirmation does not match password')
+            throw new Error(USER_MESSAGE.CONFIRM_PASSWORD_MATCHED)
           }
           return true
         }
