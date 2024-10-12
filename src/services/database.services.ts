@@ -1,7 +1,6 @@
-import { Collection, Db, MongoClient, ServerApiVersion } from 'mongodb'
+import { Collection, Db, MongoClient } from 'mongodb'
 import { config } from 'dotenv'
 import User from '~/models/schemas/User.schema.js'
-import { log } from 'console'
 config()
 
 const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cuisinecraze.lbx6u.mongodb.net/?retryWrites=true&w=majority&appName=CuisineCraze`
