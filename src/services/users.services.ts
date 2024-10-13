@@ -8,7 +8,6 @@ import RefreshToken from '~/models/schemas/RefreshToken.schema.js'
 import { ObjectId } from 'mongodb'
 import { config } from 'dotenv'
 import { USER_MESSAGE } from '~/constants/message.js'
-import { access } from 'fs'
 config()
 
 class UsersService {
@@ -47,6 +46,19 @@ class UsersService {
       privateKey: process.env.JWT_SECRET_EMAIL_VERIFY_TOKEN as string,
       options: {
         expiresIn: process.env.EMAIL_VERIFY_TOKEN_EXPIRES_IN
+      }
+    })
+  }
+
+  private signForgotPasswordToken(user_id: string) {
+    return signToken({
+      payload: {
+        user_id,
+        token_type: TokenType.ForgotPasswordToken
+      },
+      privateKey: process.env.JWT_SECRET_FORGOT_PASSWORD_TOKEN as string,
+      options: {
+        expiresIn: process.env.FORGOT_PASSWORD_TOKEN_EXPIRES_IN
       }
     })
   }
@@ -141,6 +153,47 @@ class UsersService {
     )
     return {
       message: USER_MESSAGE.RESEND_VERIFY_EMAIL_SUCCESS
+    }
+  }
+
+  async forgotPassword(user_id: string) {
+    const forgot_password_token = await this.signForgotPasswordToken(user_id)
+    await databaseService.users.updateOne(
+      {
+        _id: new ObjectId(user_id)
+      },
+      {
+        $set: {
+          forgot_password_token
+        },
+        $currentDate: {
+          updated_at: true
+        }
+      }
+    )
+    // Send email with a link: https://cuisine-craze.com/forgot-password?token=token
+    return {
+      message: USER_MESSAGE.CHECK_EMAIL_TO_RESET_PASSWORD
+    }
+  }
+
+  async resetPassword(user_id: string, password: string) {
+    databaseService.users.updateOne(
+      {
+        _id: new ObjectId(user_id)
+      },
+      {
+        $set: {
+          forgot_password_token: '',
+          password: hashPassword(password)
+        },
+        $currentDate: {
+          updated_at: true
+        }
+      }
+    )
+    return {
+      message: USER_MESSAGE.RESET_PASSWORD_SUCCESS
     }
   }
 }

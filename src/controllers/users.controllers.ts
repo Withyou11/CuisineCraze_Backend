@@ -2,9 +2,11 @@ import { Request, Response } from 'express'
 import { NextFunction, ParamsDictionary } from 'express-serve-static-core'
 import usersService from '~/services/users.services.js'
 import {
+  ForgotPasswordReqBody,
   LoginReqBody,
   LogoutReqBody,
   RegisterReqBody,
+  ResetPasswordReqBody,
   TokenPayload,
   VerifyEmailReqBody
 } from '~/models/requests/User.request.js'
@@ -92,5 +94,36 @@ export const resendEmailVerifyTokenController = async (req: Request, res: Respon
     })
   }
   const result = await usersService.resendVerifyEmail(user_id)
+  res.json(result)
+}
+
+export const forgotPasswordController = async (
+  req: Request<ParamsDictionary, unknown, ForgotPasswordReqBody>,
+  res: Response,
+  next: NextFunction
+) => {
+  const { _id } = req.user as User
+  const result = await usersService.forgotPassword((_id as ObjectId).toString())
+  res.json(result)
+}
+
+export const verifyForgotPasswordController = async (
+  req: Request<ParamsDictionary, unknown, ForgotPasswordReqBody>,
+  res: Response,
+  next: NextFunction
+) => {
+  res.json({
+    message: USER_MESSAGE.VERIFY_FORGOT_PASSWORD_SUCCESS
+  })
+}
+
+export const resetPasswordController = async (
+  req: Request<ParamsDictionary, unknown, ResetPasswordReqBody>,
+  res: Response,
+  next: NextFunction
+) => {
+  const { user_id } = req.decode_forgot_password_token as TokenPayload
+  const { password } = req.body
+  const result = await usersService.resetPassword(user_id, password)
   res.json(result)
 }
