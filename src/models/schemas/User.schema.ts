@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb'
-import { UserVerifyStatus } from '~/constants/enum.js'
+import { UserRole, UserVerifyStatus } from '~/constants/enum.js'
 
 interface UserType {
   _id?: ObjectId
@@ -12,6 +12,7 @@ interface UserType {
   forgot_password_token?: string
   verify?: UserVerifyStatus
   avatar?: string
+  role?: UserRole
 }
 
 export default class User {
@@ -25,6 +26,7 @@ export default class User {
   forgot_password_token: string
   verify: UserVerifyStatus
   avatar: string
+  role?: UserRole
 
   constructor(user: UserType) {
     const date = new Date()
@@ -38,5 +40,6 @@ export default class User {
     this.forgot_password_token = user.forgot_password_token || ''
     this.verify = user.verify || UserVerifyStatus.Unverified
     this.avatar = user.avatar || ''
+    this.role = user.role || UserRole.Customer
   }
 }

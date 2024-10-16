@@ -2,6 +2,7 @@ import { Router } from 'express'
 import {
   emailVerifyTokenController,
   forgotPasswordController,
+  getMeController,
   loginController,
   logoutController,
   registerController,
@@ -24,7 +25,6 @@ import { wrapRequestHandler } from '~/utils/handlers.js'
 const usersRouter = Router()
 
 usersRouter.use((req, res, next) => {
-  console.log('Time: ', Date.now())
   next()
 })
 
@@ -98,5 +98,13 @@ usersRouter.post(
  * Body: { forgot_password_token: string, password: string, confirm_password: string}
  */
 usersRouter.post('/reset-password', resetPasswordValidator, wrapRequestHandler(resetPasswordController))
+
+/**
+ * Description. Get my profile
+ * Path: /me
+ * Method: GET
+ * Headers: {Authorization: Bearer <access_token>}
+ */
+usersRouter.get('/me', accessTokenValidator, wrapRequestHandler(getMeController))
 
 export default usersRouter

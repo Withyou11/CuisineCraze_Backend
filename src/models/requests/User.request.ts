@@ -1,5 +1,5 @@
 import { JwtPayload } from 'jsonwebtoken'
-import { TokenType } from '~/constants/enum.js'
+import { TokenType, UserRole } from '~/constants/enum.js'
 
 export interface LoginReqBody {
   email: string
@@ -25,6 +25,7 @@ export interface RegisterReqBody {
   email: string
   password: string
   confirm_password: string
+  role: UserRole
 }
 
 export interface LogoutReqBody {

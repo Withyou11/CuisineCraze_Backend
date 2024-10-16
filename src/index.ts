@@ -4,11 +4,13 @@ const app = express()
 import usersRouter from './routes/users.routes.js'
 import databaseService from './services/database.services.js'
 import defaultErrorHandler from './middlewares/error.middlewares.js'
+import tablesRouter from './routes/tables.routes.js'
 const port = 3001
 app.use(express.json())
 databaseService.connect()
 
 app.use('/users', usersRouter)
+app.use('/tables', tablesRouter)
 
 //Default Error handlers
 app.use(defaultErrorHandler)

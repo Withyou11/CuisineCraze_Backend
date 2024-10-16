@@ -20,7 +20,8 @@ import { UserVerifyStatus } from '~/constants/enum.js'
 export const loginController = async (req: Request<ParamsDictionary, unknown, LoginReqBody>, res: Response) => {
   const user = req.user as User
   const user_id = user._id as ObjectId
-  const result = await usersService.login(user_id.toString())
+  const role = user.role
+  const result = await usersService.login(user_id.toString(), role as number)
   res.status(200).json({
     message: USER_MESSAGE.LOGIN_SUCCESSFUL,
     result
@@ -53,7 +54,7 @@ export const emailVerifyTokenController = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { user_id } = req.decode_email_verify_token as TokenPayload
+  const { user_id, role } = req.decode_email_verify_token as TokenPayload
   const user = await databaseService.users.findOne({
     _id: new ObjectId(user_id)
   })
@@ -70,7 +71,7 @@ export const emailVerifyTokenController = async (
     })
   }
 
-  const result = await usersService.verifyEmail(user_id)
+  const result = await usersService.verifyEmail(user_id, role)
   res.status(HTTP_STATUS.success.OK).json({
     message: USER_MESSAGE.EMAIL_VERIFIED_SUCCESS,
     result
@@ -126,4 +127,13 @@ export const resetPasswordController = async (
   const { password } = req.body
   const result = await usersService.resetPassword(user_id, password)
   res.json(result)
+}
+
+export const getMeController = async (req: Request, res: Response, next: NextFunction) => {
+  const { user_id } = req.decode_authorization as TokenPayload
+  const user = await usersService.getMe(user_id)
+  res.json({
+    message: USER_MESSAGE.GET_ME_SUCCESS,
+    user
+  })
 }

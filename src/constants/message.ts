@@ -32,5 +32,16 @@ export const USER_MESSAGE = {
   FORGOT_PASSWORD_TOKEN_IS_REQUIRED: 'Forgot password is required',
   FORGOT_PASSWORD_TOKEN_IS_INVALID: 'Forgot password is invalid',
   VERIFY_FORGOT_PASSWORD_SUCCESS: 'Verify password is success',
-  RESET_PASSWORD_SUCCESS: 'Reset password success'
+  RESET_PASSWORD_SUCCESS: 'Reset password success',
+  GET_ME_SUCCESS: 'Get user profile success'
+}
+
+export const ROLE_MESSAGE = {
+  CAN_NOT_DO_THIS_ACTION: 'This account can not do this action'
+}
+
+export const TABLE_MESSAGE = {
+  TABLE_NUMBER_IS_REQUIRED: 'Table number is required',
+  TABLE_NUMBER_EXISTS: 'Table number already exists',
+  CREATE_TABLE_SUCCESS: 'Create table success'
 }

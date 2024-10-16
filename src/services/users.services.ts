@@ -3,7 +3,7 @@ import databaseService from './database.services.js'
 import { RegisterReqBody } from '~/models/requests/User.request.js'
 import { hashPassword } from '~/utils/crypto.js'
 import { signToken } from '~/utils/jwt.js'
-import { TokenType, UserVerifyStatus } from '~/constants/enum.js'
+import { TokenType, UserRole, UserVerifyStatus } from '~/constants/enum.js'
 import RefreshToken from '~/models/schemas/RefreshToken.schema.js'
 import { ObjectId } from 'mongodb'
 import { config } from 'dotenv'
@@ -11,10 +11,11 @@ import { USER_MESSAGE } from '~/constants/message.js'
 config()
 
 class UsersService {
-  private signAccessToken(user_id: string) {
+  private signAccessToken(user_id: string, role: UserRole) {
     return signToken({
       payload: {
         user_id,
+        role,
         token_type: TokenType.AccessToken
       },
       privateKey: process.env.JWT_SECRET_ACCESS_TOKEN as string,
@@ -24,10 +25,11 @@ class UsersService {
     })
   }
 
-  private signRefreshToken(user_id: string) {
+  private signRefreshToken(user_id: string, role: UserRole) {
     return signToken({
       payload: {
         user_id,
+        role,
         token_type: TokenType.RefreshToken
       },
       privateKey: process.env.JWT_SECRET_REFRESH_TOKEN as string,
@@ -63,8 +65,8 @@ class UsersService {
     })
   }
 
-  private signAccessAndRefreshToken(user_id: string) {
-    return Promise.all([this.signAccessToken(user_id), this.signRefreshToken(user_id)])
+  private signAccessAndRefreshToken(user_id: string, role: UserRole) {
+    return Promise.all([this.signAccessToken(user_id, role), this.signRefreshToken(user_id, role)])
   }
 
   async register(payload: RegisterReqBody) {
@@ -79,9 +81,9 @@ class UsersService {
       })
     )
 
-    const [access_token, refresh_token] = await this.signAccessAndRefreshToken(user_id.toString())
+    const [access_token, refresh_token] = await this.signAccessAndRefreshToken(user_id.toString(), payload.role)
     await databaseService.refreshTokens.insertOne(
-      new RefreshToken({ user_id: new ObjectId(user_id), token: refresh_token })
+      new RefreshToken({ user_id: new ObjectId(user_id), token: refresh_token, role: payload.role })
     )
     return {
       access_token,
@@ -94,10 +96,10 @@ class UsersService {
     return Boolean(user)
   }
 
-  async login(user_id: string) {
-    const [access_token, refresh_token] = await this.signAccessAndRefreshToken(user_id)
+  async login(user_id: string, role: number) {
+    const [access_token, refresh_token] = await this.signAccessAndRefreshToken(user_id, role)
     await databaseService.refreshTokens.insertOne(
-      new RefreshToken({ user_id: new ObjectId(user_id), token: refresh_token })
+      new RefreshToken({ user_id: new ObjectId(user_id), token: refresh_token, role: role })
     )
     return {
       access_token,
@@ -112,7 +114,7 @@ class UsersService {
     }
   }
 
-  async verifyEmail(user_id: string) {
+  async verifyEmail(user_id: string, role: UserRole) {
     const [updateResult, [access_token, refresh_token]] = await Promise.all([
       databaseService.users.updateOne(
         { _id: new ObjectId(user_id) },
@@ -126,7 +128,7 @@ class UsersService {
           }
         }
       ),
-      this.signAccessAndRefreshToken(user_id)
+      this.signAccessAndRefreshToken(user_id, role)
     ])
 
     return {
@@ -195,6 +197,19 @@ class UsersService {
     return {
       message: USER_MESSAGE.RESET_PASSWORD_SUCCESS
     }
+  }
+  async getMe(user_id: string) {
+    const user = await databaseService.users.findOne(
+      { _id: new ObjectId(user_id) },
+      {
+        projection: {
+          password: 0,
+          forgot_password_token: 0,
+          email_verify_token: 0
+        }
+      }
+    )
+    return user
   }
 }
 
