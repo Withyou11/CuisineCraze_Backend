@@ -6,6 +6,7 @@ interface DishType {
   name: string
   description: string
   price: number
+  image: string
   status: DishStatus
   type: DishCategory
 }
@@ -15,6 +16,7 @@ export default class Dish {
   name: string
   description?: string
   price: number
+  image: string
   status: DishStatus
   type: DishCategory
   constructor(dish: DishType) {
@@ -22,6 +24,7 @@ export default class Dish {
     this.name = dish.name
     this.description = dish.description
     this.price = dish.price
+    this.image = dish.image
     this.status = dish.status || DishStatus.Available
     this.type = dish.type || DishCategory.Appetizers
   }

@@ -42,11 +42,10 @@ class DishesServices {
 
     if (payload.name) updateFields.name = payload.name
     if (payload.description) updateFields.description = payload.description
-    if (payload.price !== undefined) updateFields.price = payload.price
+    if (payload.price) updateFields.price = payload.price
+    if (payload.image) updateFields.image = payload.image
     if (payload.status) updateFields.status = payload.status
     if (payload.type) updateFields.type = payload.type
-
-    console.log(payload)
 
     delete updateFields._id
     await databaseService.dishes.updateOne(

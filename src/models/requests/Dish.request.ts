@@ -6,6 +6,7 @@ export interface CreateDishReqBody {
   name: string
   description: string
   price: number
+  image: string
   status: DishStatus
   type: DishCategory
 }
@@ -15,6 +16,7 @@ export interface UpdateDishReqBody {
   name?: string
   description?: string
   price?: number
+  image: string
   status?: DishStatus
   type?: DishCategory
 }

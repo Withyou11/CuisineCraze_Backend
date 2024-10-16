@@ -34,3 +34,8 @@ export enum DishCategory {
   Desserts,
   Beverages
 }
+
+export enum DiscountStatus {
+  Enable,
+  Disable
+}

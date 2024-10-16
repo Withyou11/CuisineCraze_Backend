@@ -66,3 +66,14 @@ export const DISH_MESSAGE = {
   GET_DISHES_BY_CATEGORY_SUCCESS: 'Get dishes by category success',
   GET_AVAILABLE_DISHES_SUCCESS: 'Get available dish success'
 }
+
+export const DISCOUNT_MESSAGE = {
+  DISCOUNT_CODE_LENGTH: 'Discount code length must be from 2 to 20 characters',
+  DISCOUNT_PERCENTAGE_VALIDATION: 'Discount percentage must be a number, and must be between 1 and 100',
+  START_DATE_ISO8601: 'Start date must be a valid date in ISO 8601 format (YYYY-MM-DD)',
+  START_DATE_GREATER: 'Start date must be greater than or equal to today',
+  END_DATE_ISO8601: 'End date must be a valid date in ISO 8601 format (YYYY-MM-DD)',
+  END_DATE_GREATER: 'End date must be greater than or equal to start date',
+  DISCOUNT_NAME_EXIST: 'Discount code exists',
+  CREATE_DISCOUNT_SUCCESS: 'Create discount success'
+}
