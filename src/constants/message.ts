@@ -43,5 +43,6 @@ export const ROLE_MESSAGE = {
 export const TABLE_MESSAGE = {
   TABLE_NUMBER_IS_REQUIRED: 'Table number is required',
   TABLE_NUMBER_EXISTS: 'Table number already exists',
-  CREATE_TABLE_SUCCESS: 'Create table success'
+  CREATE_TABLE_SUCCESS: 'Create table success',
+  UPDATE_TABLE_SUCCESS: 'Update table success'
 }

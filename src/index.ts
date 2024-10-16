@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import express, { Request, Response, NextFunction } from 'express'
+import express from 'express'
 const app = express()
 import usersRouter from './routes/users.routes.js'
 import databaseService from './services/database.services.js'
