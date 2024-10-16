@@ -3,6 +3,7 @@ import { config } from 'dotenv'
 import User from '~/models/schemas/User.schema.js'
 import RefreshToken from '~/models/schemas/RefreshToken.schema.js'
 import Table from '~/models/schemas/Table.schema.js'
+import Dish from '~/models/schemas/Dish.schema.js'
 config()
 
 const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cuisinecraze.lbx6u.mongodb.net/?retryWrites=true&w=majority&appName=CuisineCraze`
@@ -37,6 +38,10 @@ class DatabaseService {
 
   get tables(): Collection<Table> {
     return this.db.collection(process.env.DB_TABLES_COLLECTION as string)
+  }
+
+  get dishes(): Collection<Dish> {
+    return this.db.collection(process.env.DB_DISHES_COLLECTION as string)
   }
 }
 

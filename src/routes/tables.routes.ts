@@ -1,5 +1,4 @@
 import { Router } from 'express'
-import { UserRole } from '~/constants/enum.js'
 import {
   createTableController,
   getAllTablesController,

@@ -44,5 +44,25 @@ export const TABLE_MESSAGE = {
   TABLE_NUMBER_IS_REQUIRED: 'Table number is required',
   TABLE_NUMBER_EXISTS: 'Table number already exists',
   CREATE_TABLE_SUCCESS: 'Create table success',
-  UPDATE_TABLE_SUCCESS: 'Update table success'
+  UPDATE_TABLE_SUCCESS: 'Update table success',
+  CAPACITY_IS_REQUIRED: 'Capacity is required',
+  CAPACITY_IS_NUMBER: 'Capacity must be a number',
+  TABLE_NAME_IS_STRING: 'Table number must be a string',
+  TABLE_NAME_LENGTH: 'Table length is from 2 to 10 characters'
+}
+
+export const DISH_MESSAGE = {
+  DISH_NAME_IS_REQUIRED: 'Dish name is required',
+  DISH_NAME_EXISTS: 'This dish already exists',
+  CREATE_DISH_SUCCESS: 'Create dish success',
+  DISH_DESCRIPTION_LENGTH: 'Description length maximums 255 characters',
+  DISH_NAME_LENGTH: 'Name length is from 6 to 255 characters ',
+  DISH_PRICE_NUMBER: 'Dish price must be a number',
+  UPDATE_DISH_SUCCESS: 'Update dish success',
+  DISH_NAME_IS_STRING: 'Dish name must be a string',
+  DISH_PRICE_REQUIRED: 'Dish price is required',
+  GET_ALL_DISHES_SUCCESS: 'Get all dishes success',
+  GET_DISH_SUCCESS: 'Get dish success',
+  GET_DISHES_BY_CATEGORY_SUCCESS: 'Get dishes by category success',
+  GET_AVAILABLE_DISHES_SUCCESS: 'Get available dish success'
 }

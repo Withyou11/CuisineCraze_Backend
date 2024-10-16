@@ -22,3 +22,15 @@ export enum TableStatus {
   Reserved,
   Occupied
 }
+
+export enum DishStatus {
+  Available,
+  Unavailable
+}
+
+export enum DishCategory {
+  Appetizers,
+  MainCourses,
+  Desserts,
+  Beverages
+}
