@@ -75,5 +75,8 @@ export const DISCOUNT_MESSAGE = {
   END_DATE_ISO8601: 'End date must be a valid date in ISO 8601 format (YYYY-MM-DD)',
   END_DATE_GREATER: 'End date must be greater than or equal to start date',
   DISCOUNT_NAME_EXIST: 'Discount code exists',
-  CREATE_DISCOUNT_SUCCESS: 'Create discount success'
+  CREATE_DISCOUNT_SUCCESS: 'Create discount success',
+  UPDATE_DISCOUNT_SUCCESS: 'Update discount success',
+  GET_ALL_DISCOUNT_SUCCESS: 'Get all discount success',
+  DISCOUNT_CODE_WRONG: 'Discount code is wrong, please enter a other code'
 }
