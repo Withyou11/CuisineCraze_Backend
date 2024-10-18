@@ -21,6 +21,6 @@ export default class RefreshToken {
     this.token = token
     this.created_at = created_at || new Date()
     this.user_id = user_id
-    this.role = role || UserRole.Customer
+    this.role = role || UserRole.Staff
   }
 }

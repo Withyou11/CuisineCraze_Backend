@@ -11,7 +11,7 @@ import {
   updateDiscountValidator
 } from '~/middlewares/discounts.middlewares.js'
 
-import { authorizeCustomer, authorizeManager } from '~/middlewares/roles.middlewares.js'
+import { authorizeManager } from '~/middlewares/roles.middlewares.js'
 import { wrapRequestHandler } from '~/utils/handlers.js'
 
 const discountsRouter = Router()
@@ -57,17 +57,12 @@ discountsRouter.patch(
 discountsRouter.get('/get-all-discounts', wrapRequestHandler(getAllDiscountController))
 
 /**
- * Description. Customer apply discount
+ * Description.  apply discount
  * Path: /apply-discount
  * Method: GET
  * Body: { code: string, description: string, discount_percentage: number, start_date: Date, end_date: Date, image: string }
  */
 
-discountsRouter.get(
-  '/apply-discount',
-  authorizeCustomer,
-  applyDiscountValidator,
-  wrapRequestHandler(applyDiscountController)
-)
+discountsRouter.get('/apply-discount', applyDiscountValidator, wrapRequestHandler(applyDiscountController))
 
 export default discountsRouter
