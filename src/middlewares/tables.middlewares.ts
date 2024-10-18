@@ -39,23 +39,29 @@ const capacity: ParamSchema = {
 }
 
 export const createTableValidator = validate(
-  checkSchema({
-    table_number: tableNameSchema,
-    capacity: capacity
-  })
+  checkSchema(
+    {
+      table_number: tableNameSchema,
+      capacity: capacity
+    },
+    ['body']
+  )
 )
 
 export const updateTableValidator = validate(
-  checkSchema({
-    table_number: {
-      ...tableNameSchema,
-      optional: true,
-      notEmpty: undefined
+  checkSchema(
+    {
+      table_number: {
+        ...tableNameSchema,
+        optional: true,
+        notEmpty: undefined
+      },
+      capacity: {
+        ...capacity,
+        optional: true,
+        notEmpty: undefined
+      }
     },
-    capacity: {
-      ...capacity,
-      optional: true,
-      notEmpty: undefined
-    }
-  })
+    ['body']
+  )
 )

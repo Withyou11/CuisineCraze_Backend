@@ -106,6 +106,8 @@ export const applyDiscountValidator = validate(
             throw new Error(DISCOUNT_MESSAGE.DISCOUNT_CODE_WRONG)
           }
           req.discount_percentage = isValidateDiscount.discount_percentage
+          req.code = isValidateDiscount.code
+          req._id = isValidateDiscount._id
           return true
         }
       }

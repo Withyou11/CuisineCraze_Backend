@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import { TokenPayload } from './models/requests/User.request.ts'
 import User from './models/schemas/User.schema.ts'
 declare module 'express' {
@@ -8,5 +9,7 @@ declare module 'express' {
     decode_email_verify_token?: TokenPayload
     decode_forgot_password_token?: TokenPayload
     discount_percentage?: number
+    code?: string
+    _id?: ObjectId
   }
 }

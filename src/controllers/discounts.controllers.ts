@@ -29,8 +29,12 @@ export const getAllDiscountController = async (req: Request, res: Response) => {
 
 export const applyDiscountController = (req: Request, res: Response) => {
   const discountPercentage = req.discount_percentage
+  const _id = req._id
+  const code = req.code
   res.json({
     success: true,
-    discount_percentage: discountPercentage
+    discount_percentage: discountPercentage,
+    _id: _id,
+    code: code
   })
 }

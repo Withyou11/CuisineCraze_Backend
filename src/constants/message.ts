@@ -80,3 +80,10 @@ export const DISCOUNT_MESSAGE = {
   GET_ALL_DISCOUNT_SUCCESS: 'Get all discount success',
   DISCOUNT_CODE_WRONG: 'Discount code is wrong, please enter a other code'
 }
+
+export const ORDER_MESSAGE = {
+  ORDER_TOTAL_AMOUNT_MORE_THAN_ONE: 'Order total amount must be more than 1$',
+  ORDER_DISHES_0: 'Please select at least one dish',
+  CREATE_ORDER_SUCCESS: 'Create order success',
+  GET_ORDERS_SUCCESS: 'Get all orders success'
+}

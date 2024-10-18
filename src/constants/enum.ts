@@ -38,3 +38,8 @@ export enum DiscountStatus {
   Enable,
   Disable
 }
+
+export enum PaymentMethod {
+  Cash,
+  CreditCard
+}

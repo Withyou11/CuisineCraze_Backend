@@ -30,7 +30,9 @@ class DiscountsServices {
 
     return {
       is_valid: true,
-      discount_percentage: discount.discount_percentage
+      _id: discount._id,
+      discount_percentage: discount.discount_percentage,
+      code: discount.code
     }
   }
 
